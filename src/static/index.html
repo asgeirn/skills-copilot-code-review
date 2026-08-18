@@ -12,17 +12,28 @@
     />
   </head>
   <body>
-    <div class="announcement-banner" role="status" aria-live="polite">
-      <span aria-hidden="true">📢</span>
-      Activity registration is open until the end of the month. Don't lose your spot!
-    </div>
+    <div
+      id="announcement-banners"
+      class="announcement-banners"
+      role="status"
+      aria-live="polite"
+      aria-label="School announcements"
+    ></div>
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
       <div id="user-controls">
         <div id="user-status">
+          <button
+            id="manage-announcements-button"
+            class="icon-button hidden"
+            type="button"
+          >
+            <span class="user-icon" aria-hidden="true">📢</span>
+            <span>Announcements</span>
+          </button>
           <button id="login-button" class="icon-button">
-            <span class="user-icon">👤</span>
+            <span class="user-icon" aria-hidden="true">👤</span>
             <span>Login</span>
           </button>
           <div id="user-info" class="hidden">
@@ -135,6 +146,86 @@
           <button type="submit">Login</button>
         </form>
         <div id="login-message" class="hidden message"></div>
+      </div>
+    </div>
+
+    <!-- Announcements Management Modal -->
+    <div
+      id="announcements-modal"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="announcements-modal-title"
+    >
+      <div class="modal-content announcements-modal-content">
+        <button
+          type="button"
+          class="close-announcements-modal close-modal"
+          aria-label="Close announcements manager"
+        >
+          &times;
+        </button>
+        <h3 id="announcements-modal-title">Manage Announcements</h3>
+
+        <div class="announcements-layout">
+          <section class="announcements-list-panel" aria-label="Existing announcements">
+            <div class="panel-header">
+              <h4>Existing announcements</h4>
+              <button type="button" id="new-announcement-button" class="secondary-button">
+                + New
+              </button>
+            </div>
+            <ul id="announcements-list" class="announcements-list">
+              <li class="announcements-empty">Loading announcements…</li>
+            </ul>
+          </section>
+
+          <section class="announcement-form-panel" aria-label="Announcement editor">
+            <h4 id="announcement-form-title">New announcement</h4>
+            <form id="announcement-form" novalidate>
+              <input type="hidden" id="announcement-id" value="" />
+              <div class="form-group">
+                <label for="announcement-title">Title</label>
+                <input
+                  type="text"
+                  id="announcement-title"
+                  maxlength="120"
+                  required
+                  placeholder="Registration is open"
+                />
+              </div>
+              <div class="form-group">
+                <label for="announcement-message">Message</label>
+                <textarea
+                  id="announcement-message"
+                  rows="3"
+                  maxlength="500"
+                  required
+                  placeholder="Share the details students need to know…"
+                ></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="announcement-start">
+                    Start date <span class="optional-hint">(optional)</span>
+                  </label>
+                  <input type="datetime-local" id="announcement-start" />
+                </div>
+                <div class="form-group">
+                  <label for="announcement-expiration">Expiration date</label>
+                  <input type="datetime-local" id="announcement-expiration" required />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" id="save-announcement-button">Save announcement</button>
+                <button type="button" id="cancel-announcement-button" class="secondary-button">
+                  Cancel
+                </button>
+              </div>
+            </form>
+            <div id="announcement-message-box" class="hidden message"></div>
+          </section>
+        </div>
       </div>
     </div>
 
